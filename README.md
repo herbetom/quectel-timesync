@@ -3,7 +3,7 @@
 ## About
 
 This tool allows for acquiring the current time from the cellular network for configuring the local clock.
-Compared to NTP, this has the advantage of nut using up mobile traffic.
+Compared to NTP, this has the advantage of not using up mobile traffic.
 
 It takes advantage of the `AT+QLTS` command found on Quectel modems. This functionality depends on support
 of the mobile network.
