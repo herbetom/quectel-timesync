@@ -4,7 +4,7 @@ on: [push, pull_request]
 
 jobs:
   build:
-    name: ${{ matrix.version }}-${{ matrix.arch }}
+    name: ${{ matrix.arch }}-${{ matrix.version }}
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -34,5 +34,5 @@ jobs:
       - name: Store packages
         uses: actions/upload-artifact@v2
         with:
-          name: ${{ matrix.version }}-${{ matrix.arch}}-packages
+          name: ${{ matrix.arch}}-${{ matrix.version }}-packages
           path: bin/packages
