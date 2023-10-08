@@ -26,11 +26,9 @@ jobs:
         uses: openwrt/gh-action-sdk@main
         env:
           ARCH: ${{ matrix.arch }}-${{ matrix.version }}
-          KEY_BUILD: |
-            untrusted comment: private key 7580714ee0d0b178
-            RWRCSwAAAABqaz5Tmbv63Wvk42y8YA1HjJ8fPtSeBx11gHFO4NCxeECdO33e8TvyG85V8TI2e3+gG+jFr4Nft63N6gMGEmR/rqTiIXIxplpNm1AcdEF3SsT+mfwwud+YrhLkaeBpu3c=
           NO_DEFAULT_FEEDS: 1
           V: "s"
+          PACKAGES: quectel-timesync
       - name: Store packages
         uses: actions/upload-artifact@v3
         with:
