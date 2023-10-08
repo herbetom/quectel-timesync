@@ -157,7 +157,8 @@ int parse_response(const char *response, uint16_t *output) {
 	copy_and_parse_field(response, 18, 2, &output[DATE_TIME_FIELD_SECOND]);
 
 	if (debug) {
-		#define PRINT_FIELD(label, value) fprintf(stdout, "%s: %d\n", label, value)
+		fprintf(stdout, "Parsed DateTime:\n");
+		#define PRINT_FIELD(label, value) fprintf(stdout, "  %s: %d\n", label, value)
 		PRINT_FIELD("Year", output[DATE_TIME_FIELD_YEAR]);
 		PRINT_FIELD("Month", output[DATE_TIME_FIELD_MONTH]);
 		PRINT_FIELD("Day", output[DATE_TIME_FIELD_DAY]);
@@ -182,7 +183,7 @@ int set_date_and_time(uint16_t *fields) {
 		fields[DATE_TIME_FIELD_SECOND]);
 	
 	if (debug)
-		fprintf(stdout, "%s\n", buf);
+		fprintf(stdout, "Execute: %s\n", buf);
 
 	system(buf);
 
@@ -209,6 +210,10 @@ int perform_timesync(int serial_fd) {
 	if (validate_response(buf, strlen(buf)) != 0) {
 		fprintf(stderr, "Invalid response: %s\n", buf);
 		return -1;
+	}
+
+	if (debug) {
+		fprintf(stdout, "Read from serial: %s\n", buf);
 	}
 
 	if (parse_response(buf, fields)) {
