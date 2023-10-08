@@ -19,9 +19,19 @@ Determines if the tool should operate in daemon mode on system-start.
 
 Valid values: `0` or `1`
 
+## `device`
+
+Path for the modem device to use.
+
+In case this option is set, it overrides the `path` option.
+
+Example: `/dev/cdc-wdm0`
+
 ## `path`
 
 Path for the serial interface to use.
+
+This option is overriden by the `device` option.
 
 Example: `/dev/ttyUSB4`
 
