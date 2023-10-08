@@ -20,7 +20,7 @@ jobs:
           - main
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - name: Build
         uses: openwrt/gh-action-sdk@main
@@ -32,7 +32,7 @@ jobs:
           NO_DEFAULT_FEEDS: 1
           V: "s"
       - name: Store packages
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v3
         with:
           name: ${{ matrix.arch}}-${{ matrix.version }}-packages
           path: bin/packages
