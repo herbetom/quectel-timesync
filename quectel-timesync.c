@@ -223,9 +223,10 @@ int perform_timesync(int serial_fd) {
 
 int main(int argc, char *argv[])
 {
+	const char *serial_path = NULL;
 	int serial_fd = -1;
 	int daemon_interval = 0;
-	int ret;
+	int ret = 0;
 	int c;
 
 	while ((c = getopt (argc, argv, "d:p:v")) != -1) {
@@ -237,7 +238,7 @@ int main(int argc, char *argv[])
 				debug = 1;
 				break;
 			case 'p':
-				serial_fd = open_serial_port(optarg);
+				serial_path = optarg;
 				break;
 			default:
 				print_usage(argv[0]);
@@ -247,26 +248,30 @@ int main(int argc, char *argv[])
 
 	if (daemon_interval && daemon_interval < 10) {
 		fprintf(stderr, "Invalid daemon interval. Minimum: 10\n");
-		ret = -1;
-		goto out;
+		return -1;
 	}
 
-	if (serial_fd < 0) {
+	if (!serial_path) {
 		print_usage(argv[0]);
 		fprintf(stderr, "No serial port specified\n");
 		return -1;
 	}
 
 	while (1) {
-		ret = perform_timesync(serial_fd);
-		
+		serial_fd = open_serial_port(serial_path);
+		if (serial_fd < 0) {
+			fprintf(stderr, "Could not open serial port %s\n", serial_path);
+			ret = -1;
+		} else {
+			ret = perform_timesync(serial_fd);
+			close(serial_fd);
+		}
+
 		if (!daemon_interval)
-			goto out;
+			return ret;
 		
 		sleep(daemon_interval);
 	}
 
-out:
-	close(serial_fd);
-	return ret;
+	return 0;
 }
