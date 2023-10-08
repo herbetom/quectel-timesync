@@ -1,10 +1,10 @@
-name: Test Build
+name: Build
 
 on: [push, pull_request]
 
 jobs:
   build:
-    name: ${{ matrix.arch }} build
+    name: ${{ matrix.version }}-${{ matrix.arch }}
     runs-on: ubuntu-latest
     strategy:
       matrix:
@@ -14,6 +14,10 @@ jobs:
           - mips_24kc
           - mipsel_24kc
           - x86_64
+        version:
+          - openwrt-22.03
+          - openwrt-23.05
+          - main
 
     steps:
       - uses: actions/checkout@v2
@@ -21,7 +25,7 @@ jobs:
       - name: Build
         uses: openwrt/gh-action-sdk@main
         env:
-          ARCH: ${{ matrix.arch }}
+          ARCH: ${{ matrix.arch }}-${{ matrix.version }}
           KEY_BUILD: |
             untrusted comment: private key 7580714ee0d0b178
             RWRCSwAAAABqaz5Tmbv63Wvk42y8YA1HjJ8fPtSeBx11gHFO4NCxeECdO33e8TvyG85V8TI2e3+gG+jFr4Nft63N6gMGEmR/rqTiIXIxplpNm1AcdEF3SsT+mfwwud+YrhLkaeBpu3c=
@@ -30,5 +34,5 @@ jobs:
       - name: Store packages
         uses: actions/upload-artifact@v2
         with:
-          name: ${{ matrix.arch}}-packages
+          name: ${{ matrix.version }}-${{ matrix.arch}}-packages
           path: bin/packages/${{ matrix.arch }}/packages/*.ipk
