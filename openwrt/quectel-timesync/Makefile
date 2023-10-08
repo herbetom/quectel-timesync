@@ -1,6 +1,7 @@
 include $(TOPDIR)/rules.mk
 
 PKG_NAME:=quectel-timesync
+PKG_LICENSE:=GPL-2.0-only
 PKG_VERSION:=$(shell git show -s --format=%cd --date=short)
 PKG_RELEASE:=1
 
