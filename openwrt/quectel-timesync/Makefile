@@ -19,8 +19,7 @@ endef
 define Package/quectel-timesync
   SECTION:=net
   CATEGORY:=Network
-  TITLE:=Tool for acquiring time from Quectel cellular modems
-  DEPENDS:=+kmod-usb-serial-option
+  TITLE:=TOol for acquiring time from Quectel cellular modems
 endef
 
 define Package/quectel-timesync/conffiles
