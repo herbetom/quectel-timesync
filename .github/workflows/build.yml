@@ -15,6 +15,9 @@ jobs:
           - mipsel_24kc
           - x86_64
         version:
+          - '22.03.4'
+          - '22.03.5'
+          - '23.05.0'
           - openwrt-22.03
           - openwrt-23.05
           - main
