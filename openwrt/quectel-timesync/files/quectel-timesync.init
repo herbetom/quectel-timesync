@@ -30,7 +30,7 @@ start_service() {
 		path="/dev/$(tty_from_dev "$device_name")"
 	}
 
-	interval="${interval:-10}"
+	interval="${interval:-300}"
 
 	[ "$enabled" -gt 0 ] || return
 
