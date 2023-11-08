@@ -191,7 +191,7 @@ int set_date_and_time(uint16_t *fields) {
 }
 
 int print_usage(char *app) {
-	fprintf(stderr, "Usage: %s [-d] [-p <serial port>]\n", app);
+	fprintf(stderr, "Usage: %s [-d <interval>] [-p <serial port>] [-v]\n", app);
 	return 0;
 }
 
