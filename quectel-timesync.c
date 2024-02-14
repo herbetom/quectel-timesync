@@ -103,6 +103,8 @@ int read_response(int fd, const char *response, char *buf, int buf_size)
 				break;
 			case READ_STATE_CONTENT:
 				if (input_char == '\n') {
+					if (*(ptr - 1) == '\r')
+						ptr--;
 					*ptr = '\0';
 					return ptr - buf;
 				} else {
